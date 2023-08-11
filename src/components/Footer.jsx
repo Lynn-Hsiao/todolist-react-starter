@@ -1,4 +1,6 @@
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuth } from '../contexts/AuthContext';
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -32,11 +34,21 @@ const StyledButton = styled.button`
 `;
 
 const Footer = ({ todos }) => {
-  console.log(todos.length);
+  const { logout } = useAuth();
+  // const navigate = useNavigate();
+
+  const handleClick = () => {
+    //移除authToken造成無法登入=>登出
+    // localStorage.removeItem('authToken');
+
+    //導引至登入頁面
+    // navigate('/login');
+    logout();
+  };
   return (
     <StyledFooter>
       <p>剩餘項目數：{todos.length}</p>
-      <StyledButton>登出</StyledButton>
+      <StyledButton onClick={handleClick}>登出</StyledButton>
     </StyledFooter>
   );
 };
